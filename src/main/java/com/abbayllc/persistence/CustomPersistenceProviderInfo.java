@@ -60,7 +60,7 @@ public class CustomPersistenceProviderInfo implements PersistenceUnitInfo {
 
     @Override
     public List<String> getManagedClassNames() {
-        return List.of("com.abbayllc.entities.Group", "com.abbayllc.entities.User");
+        return List.of("com.abbayllc.entities.Course", "com.abbayllc.entities.Student");
     }
 
     @Override

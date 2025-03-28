@@ -1,15 +1,15 @@
 package com.abbayllc;
 
+import com.abbayllc.entities.Course;
 import com.abbayllc.entities.Group;
+import com.abbayllc.entities.Student;
 import com.abbayllc.entities.User;
 import com.abbayllc.persistence.CustomPersistenceProviderInfo;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
@@ -25,32 +25,31 @@ public class Main {
 
         try{
             manager.getTransaction().begin();
-            User user = new User();
-            user.setName("Abebe Demis");
-            User user2 = new User();
-            user2.setName("Noah Abebe");
+            //creating instances
+            Student student = new Student();
+            student.setName("Abebe Demis");
 
-            Group group = new Group();
-            group.setName("Group 1");
+            Course course1 = new Course();
+            course1.setTitle("Object oriented programming");
+            Course course2 = new Course();
+            course2.setTitle("Javascript in depth");
 
-            Group group2 = new Group();
-            group2.setName("Group 2");
+            Course course3 = new Course();
+            course3.setTitle("Spring framework in depth");
 
-            group.setUsers(List.of(user,user2));
-            group2.setUsers(List.of(user2));
-
-            manager.persist(user);
-            manager.persist(user2);
-
-            manager.persist(group);
-            manager.persist(group2);
+            student.setCourses(List.of(course1,course2,course3));
 
 
 
-
-
-
+            manager.persist(student);
             manager.getTransaction().commit();
+
+
+            Student stu= manager.find(Student.class,2l);
+            List<Course> abeCourses = stu.getCourses();
+            for(Course c : abeCourses){
+                System.out.println(c.getTitle());
+            }
 
         }finally {
             manager.close();
